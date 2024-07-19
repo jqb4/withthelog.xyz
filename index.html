@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+        }
+        #quote-container {
+            background-color: black;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #quote {
+            font-family: "BIZ UDGothic", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 24px;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+<div id="quote-container">
+    <div id="quote"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const quotes = [
+            "The only way to truly know someone is to observe their actions, not their words.",
+            "The path to success is filled with challenges and obstacles. It’s up to you to overcome them.",
+            "Knowledge is power, but it’s useless if you don’t know how to use it.",
+            "Appearances can be deceiving. People often hide their true selves behind a mask.",
+            "The world is full of uncertainties. The only thing you can control is your own actions.",
+            "To truly understand someone, you have to look beyond their surface level.",
+            "People start by judging others based on outward appearance. Whether they’re handsome or cute or the total opposite. To put it simply, it’s what we call a first impression.",
+            "It’s not that I never smile. But you don’t bring it out in me. That’s my assessment.",
+            "All people are nothing but tools. It doesn’t matter how it’s done. It doesn’t matter what needs to be sacrificed. In this world, winning is everything. As long as I win in the end…That’s all that matters.",
+            "A person’s cruelty can increase depending upon on the circumstances.",
+            "Smiling means letting your guard down in front of another person, even if just a little.",
+            "Those with darkness in their hearts attract one another. Eventually, the strongest of the two envelops the other.",
+            "There is Darkness in this world deeper than you even know.",
+            "At any rate, humans change over time based on their actions. Truth be told, at the end of the day, equality is just a fantasy. And most of us go through life denying the fact that we live in a meritocracy.",
+            "People are all born liars and are mostly used to lying. If a person who has never lied even once in their life exists, that existence itself would be a lie. For humans, lies are an inseparable part of ourselves.",
+            "If you worried too much, you’d likely miss out on something important and suffer for it.",
+            "Most people possessed both a public face and a private inner self after all.",
+            "Every individual has his or her own strengths and weaknesses. That’s what it means to be human.",
+            "Equality may be a false concept, but our inequality remains a difficult thing to accept.",
+            "I don't like expending more effort than I have to.",
+            "他人が真実を隠蔽することに対して、我々は怒るべきでない。なぜなら、我々も自身から真実を隠蔽するのであるから。",
+            "地獄、それは他人である。",
+            "嘘には二種類ある。過去に関する事実上の嘘と未来に関する権利上の嘘である。",
+            "人間は自由の刑に処されている。",
+            "裏切者の中で最も危険なる裏切者は何かといえば、すべての人間が己れ自身の内部にかくしているところのものである。",
+            "天才とは、狂気よりも1階層分だけ上に住んでいる者のことである。",
+            "すべての失敗は成功への過程に過ぎない。",
+            "過ちを犯しながら、それを改めないことをこそ、真の過ちという。",
+            "自分自身を御せない者は、いつまでも奴隷のままだ。",
+            "あなたが出会う最悪の敵は、常にあなた自身だ。",
+            "運命は勇気ある者を助ける。",
+            "悪を行うよりも、その悪に傷つけられる方が良い。",
+            "人は自らの本質と向き合うのを避けるためなら、 どんな愚かな行いにも手を染めてしまう。",
+            "過去を顧みぬ者はそれを繰り返し、裁かれる。",
+            "最高の法は、最大の不正を生み出す。"
+        ];
+
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomQuote = quotes[randomIndex];
+
+        document.getElementById('quote').innerText = randomQuote;
+    });
+</script>
+</body>
+</html>
