@@ -23,12 +23,9 @@ function connectToLanyard() {
       const presence = data.d;
 
       // Update HTML content dynamically
-      // const statusElement = document.getElementById("status"); // Remove this line to omit status
+      const statusElement = document.getElementById("status");
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
-
-      // You can omit the following line if you don't want to show status
-      // statusElement.textContent = `Status: ${presence.discord_status}`;
 
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
@@ -36,25 +33,25 @@ function connectToLanyard() {
         activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
 
         // Display album art
-        albumArtElement.src = spotifyData.album_art_url;
+        albumArtElement.src = spotifyData.album_art_url; // Update album art URL
         albumArtElement.style.display = "block"; // Show the album art
+
+        // Extract colors and set gradient background
+        const colorThief = new ColorThief();
+        albumArtElement.onload = function () {
+          const dominantColor = colorThief.getColor(albumArtElement);
+          const palette = colorThief.getPalette(albumArtElement, 2);
+          
+          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
+          document.body.style.background = gradient;
+        };
       } else {
         activityElement.textContent = "offline :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
       }
     }
-  }; // Closing the onmessage function
-
-  ws.onclose = () => {
-    console.log("WebSocket connection closed, reconnecting...");
-    setTimeout(connectToLanyard, 5000); // Reconnect after 5 seconds
   };
 
-  ws.onerror = (error) => {
-    console.error("WebSocket error:", error);
-    ws.close();
-  };
+  // Start the WebSocket connection
+  connectToLanyard();
 }
-
-// Start the WebSocket connection
-connectToLanyard();
