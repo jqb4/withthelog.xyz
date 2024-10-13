@@ -38,14 +38,27 @@ function connectToLanyard() {
         albumArtElement.style.display = "block"; // Show the album art
         separatorElement.style.display = "block"; // Show the separator when a song is playing
 
-        // Extract colors and set gradient background
+        // Wait for the album art to fully load before extracting the colors
         albumArtElement.onload = function () {
-          const colorThief = new ColorThief();
-          const dominantColor = colorThief.getColor(albumArtElement);
-          const palette = colorThief.getPalette(albumArtElement, 2);
-          
-          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
-          document.body.style.background = gradient; // Set the new gradient background
+          try {
+            const colorThief = new ColorThief();
+            if (albumArtElement.complete && albumArtElement.naturalHeight !== 0) {
+              const dominantColor = colorThief.getColor(albumArtElement);
+              const palette = colorThief.getPalette(albumArtElement, 2);
+
+              const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
+              document.body.style.background = gradient; // Set the new gradient background
+            } else {
+              console.error("Image not loaded properly.");
+            }
+          } catch (error) {
+            console.error("Failed to extract colors from image.", error);
+          }
+        };
+
+        // Handle image load errors
+        albumArtElement.onerror = function () {
+          console.error("Failed to load the album art image.");
         };
       } else {
         activityElement.textContent = "offline :(";
