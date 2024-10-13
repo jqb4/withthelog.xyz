@@ -1,6 +1,4 @@
 let ws;
-let progressInterval; // To hold the interval reference for updating progress
-let songEndTimeout; // To reset the UI when the song ends
 
 function connectToLanyard() {
   ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -11,7 +9,7 @@ function connectToLanyard() {
       JSON.stringify({
         op: 2,
         d: {
-          subscribe_to_id: "712648730423197697", // Discord User ID
+          subscribe_to_id: "712648730423197697", // Replace with your Discord ID
         },
       })
     );
@@ -27,87 +25,50 @@ function connectToLanyard() {
       // Update HTML content dynamically
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
-      const separatorElement = document.querySelector(".separator");
-      const progressBar = document.getElementById("progressBar");
-
-      // Clear any existing progress interval or song end timeout
-      if (progressInterval) clearInterval(progressInterval);
-      if (songEndTimeout) clearTimeout(songEndTimeout);
+      const separatorElement = document.querySelector(".separator"); // Select the separator element
+      const progressBarElement = document.getElementById("progress-bar"); // Select the progress bar
 
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
+        activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
 
         // Load album art with CORS
-        albumArtElement.crossOrigin = "Anonymous";
-        albumArtElement.src = spotifyData.album_art_url;
-        albumArtElement.style.display = "block";
-        separatorElement.style.display = "block";
-        progressBar.style.display = "block";
-
-        // Get the start and end timestamps of the song
-        const startTime = spotifyData.timestamps.start;
-        const endTime = spotifyData.timestamps.end;
-        const duration = endTime - startTime;
-
-        // Update the progress bar in real time
-        const updateProgress = () => {
-          const currentTime = Date.now();
-          const elapsed = currentTime - startTime;
-          const progress = (elapsed / duration) * 100;
-          progressBar.value = progress;
-
-          if (progress >= 100) clearInterval(progressInterval); // Stop updating when the song is over
-        };
-
-        // Update the progress bar every second
-        updateProgress();
-        progressInterval = setInterval(updateProgress, 1000);
-
-        // Set a timeout to reset the UI when the song ends
-        songEndTimeout = setTimeout(() => {
-          resetSongDisplay();
-        }, duration); // Reset after the song's duration
+        albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
+        albumArtElement.src = spotifyData.album_art_url; // Update album art URL
+        albumArtElement.style.display = "block"; // Show the album art
+        separatorElement.style.display = "block"; // Show the separator when a song is playing
 
         // Extract colors and set gradient background
         albumArtElement.onload = function () {
-          try {
-            const colorThief = new ColorThief();
-            if (albumArtElement.complete && albumArtElement.naturalHeight !== 0) {
-              const dominantColor = colorThief.getColor(albumArtElement);
-              const palette = colorThief.getPalette(albumArtElement, 3);
-
-              const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
-              document.body.style.background = gradient;
-            } else {
-              console.error("Image not loaded properly.");
-            }
-          } catch (error) {
-            console.error("Failed to extract colors from image.", error);
-          }
+          const colorThief = new ColorThief();
+          const dominantColor = colorThief.getColor(albumArtElement);
+          const palette = colorThief.getPalette(albumArtElement, 2);
+          
+          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
+          document.body.style.background = gradient; // Set the new gradient background
         };
 
+        // Update the progress bar based on song progress
+        const progressPercentage = (spotifyData.timestamps.current / spotifyData.timestamps.end) * 100;
+        progressBarElement.style.width = `${progressPercentage}%`;
+
+        // Continuously update the progress bar every second
+        setInterval(() => {
+          const currentTime = Date.now();
+          const elapsedTime = currentTime - spotifyData.timestamps.start;
+          const totalDuration = spotifyData.timestamps.end - spotifyData.timestamps.start;
+          const updatedProgress = (elapsedTime / totalDuration) * 100;
+          progressBarElement.style.width = `${updatedProgress}%`;
+        }, 1000); // Update every second
       } else {
-        // Reset if no Spotify activity
-        resetSongDisplay();
+        activityElement.textContent = "No current activity.";
+        albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
+        separatorElement.style.display = "none"; // Hide the separator when no song is playing
+        progressBarElement.style.width = "0%"; // Reset the progress bar
       }
     }
   };
-}
-
-// Function to reset the song display (called when the song ends)
-function resetSongDisplay() {
-  const activityElement = document.getElementById("activity");
-  const albumArtElement = document.getElementById("albumArt");
-  const separatorElement = document.querySelector(".separator");
-  const progressBar = document.getElementById("progressBar");
-
-  activityElement.textContent = "offline :(";
-  albumArtElement.style.display = "none";
-  separatorElement.style.display = "none";
-  progressBar.style.display = "none";
-  progressBar.value = 0; // Reset progress bar
 }
 
 // Start the WebSocket connection after the DOM is fully loaded
