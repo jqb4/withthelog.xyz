@@ -45,7 +45,7 @@ function connectToLanyard() {
           const palette = colorThief.getPalette(albumArtElement, 2);
           
           const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
-          document.body.style.background = gradient;
+          document.body.style.background = gradient; // Set the new gradient background
         };
       } else {
         activityElement.textContent = "offline :(";
