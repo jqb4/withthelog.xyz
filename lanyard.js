@@ -9,7 +9,7 @@ function connectToLanyard() {
       JSON.stringify({
         op: 2,
         d: {
-          subscribe_to_id: "712648730423197697", // Replace with your Discord ID
+          subscribe_to_id: "712648730423197697", // Discord User ID
         },
       })
     );
@@ -31,7 +31,11 @@ function connectToLanyard() {
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
+        activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
+        activityElement.textContent = activityText;
+
+        // Update the document title with the activity
+        document.title = activityText;
 
         // Load album art with CORS
         albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
@@ -62,7 +66,7 @@ function connectToLanyard() {
           progressBarElement.style.width = `${updatedProgress}%`;
         }, 1000); // Update every second
       } else {
-        activityElement.textContent = "No current activity.";
+        activityElement.textContent = "offline :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
         separatorElement.style.display = "none"; // Hide the separator when no song is playing
         progressBarElement.style.width = "0%"; // Reset the progress bar

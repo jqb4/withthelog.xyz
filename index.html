@@ -7,54 +7,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Lanyard Presence</title>
-  <style>
-
-    .container {
-      display: flex;
-      align-items: center; /* Center items vertically */
-      background-color: #e0e0e0; /* Gray background */
-      padding: 20px; /* Space inside the container */
-      border-radius: 8px; /* Rounded corners */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    }
-
-    #activity {
-      font-family: "Sora", sans-serif;
-      font-optical-sizing: auto;
-      font-weight: 400;
-      font-style: normal;
-      text-align: left;
-      font-size: 20px;
-      color: #333;
-      margin-left: 5px; /* Space between the line and activity */
-    }
-
-    /* Style for album art */
-    #albumArt {
-      width: 100px;
-      height: 100px;
-      border-radius: 8px;
-    }
-
-    .separator {
-      width: 2px; /* Width of the vertical line */
-      background-color: #ccc; /* Color of the line */
-      height: 100px; /* Height of the line */
-      margin: 0 20px; /* Space around the line */
-    }
-  </style>
+  <title></title>
 </head>
 <body>
-  <div class="container">
-    <img id="albumArt" src="" alt="Album Art" style="display:none;" />
-    <div class="separator"></div>
-    <p id="activity">loading...</p>
-    <br>
+  <div id="container">
+    <div id="info-wrapper">
+      <img id="albumArt" alt="Album Art" style="display: none;" />
+      <div class="separator" style="display: none;"></div>
+      <div id="activity">No current activity.</div>
+    </div>
+
     <div id="progress-container">
       <div id="progress-bar"></div>
     </div>
-    
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
