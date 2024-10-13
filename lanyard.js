@@ -23,7 +23,6 @@ function connectToLanyard() {
       const presence = data.d;
 
       // Update HTML content dynamically
-      const statusElement = document.getElementById("status");
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
 
@@ -51,7 +50,9 @@ function connectToLanyard() {
       }
     }
   };
-
-  // Start the WebSocket connection
-  connectToLanyard();
 }
+
+// Start the WebSocket connection after the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  connectToLanyard();
+});
