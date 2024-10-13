@@ -26,9 +26,6 @@ function connectToLanyard() {
     const activityElement = document.getElementById("activity");
     const albumArtElement = document.getElementById("albumArt");
 
-    // Update the status text
-    statusElement.textContent = `Status: ${presence.discord_status}`;
-
     // Update the activity text and display Spotify data
     if (presence.listening_to_spotify) {
       const spotifyData = presence.spotify;
