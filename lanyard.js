@@ -48,7 +48,7 @@ function connectToLanyard() {
           document.body.style.background = gradient;
         };
       } else {
-        activityElement.textContent = "offlice :(";
+        activityElement.textContent = "offline :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
         separatorElement.style.display = "none"; // Hide the separator when no song is playing
       }
