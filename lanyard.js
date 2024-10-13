@@ -31,13 +31,14 @@ function connectToLanyard() {
         const spotifyData = presence.spotify;
         activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
 
-        // Display album art
+        // Load album art with CORS
+        albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
         albumArtElement.src = spotifyData.album_art_url; // Update album art URL
         albumArtElement.style.display = "block"; // Show the album art
 
         // Extract colors and set gradient background
-        const colorThief = new ColorThief();
         albumArtElement.onload = function () {
+          const colorThief = new ColorThief();
           const dominantColor = colorThief.getColor(albumArtElement);
           const palette = colorThief.getPalette(albumArtElement, 2);
           
