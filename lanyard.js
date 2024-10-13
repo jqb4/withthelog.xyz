@@ -41,7 +41,7 @@ function connectToLanyard() {
         albumArtElement.style.display = "block"; // Show the album art
         separatorElement.style.display = "block"; // Show the separator when a song is playing
 
-        // Extract colors and set gradient background
+        // Extract colors and set gradient background with smooth transition
         albumArtElement.onload = function () {
           try {
             const colorThief = new ColorThief();
@@ -54,7 +54,9 @@ function connectToLanyard() {
               // Check if palette data is valid
               if (dominantColor && palette && palette.length > 1) {
                 const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
-                document.body.style.background = gradient; // Set the new gradient background
+
+                // Apply smooth transition to background
+                document.body.style.background = gradient;
               } else {
                 console.error("Invalid palette data. Applying fallback background.");
                 document.body.style.background = "#2c2c2c"; // Fallback background
