@@ -23,8 +23,12 @@ function connectToLanyard() {
     const presence = data.d;
 
     // Update HTML content dynamically
+    // const statusElement = document.getElementById("status"); // No longer needed
     const activityElement = document.getElementById("activity");
     const albumArtElement = document.getElementById("albumArt");
+
+    // Remove statusElement updates, since we don't want to display it
+    // statusElement.textContent = `Status: ${presence.discord_status}`;
 
     // Update the activity text and display Spotify data
     if (presence.listening_to_spotify) {
@@ -40,6 +44,7 @@ function connectToLanyard() {
     }
   }
 };
+
 
 
 // Start the WebSocket connection
