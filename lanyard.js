@@ -1,51 +1,59 @@
-const ws = new WebSocket("wss://api.lanyard.rest/socket");
+let ws;
 
-ws.onopen = () => {
-  console.log("Connected to Lanyard");
-  ws.send(
-    JSON.stringify({
-      op: 2,
-      d: {
-        subscribe_to_id: "712648730423197697", // Replace with your actual Discord ID
-      },
-    })
-  );
-};
+function connectToLanyard() {
+  ws = new WebSocket("wss://api.lanyard.rest/socket");
 
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  console.log("Full WebSocket message received:", data);
+  ws.onopen = () => {
+    console.log("Connected to Lanyard");
+    ws.send(
+      JSON.stringify({
+        op: 2,
+        d: {
+          subscribe_to_id: "712648730423197697", // Replace with your Discord ID
+        },
+      })
+    );
+  };
 
-  if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-    const presence = data.d;
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log("Full WebSocket message received:", data);
 
-    const statusElement = document.getElementById("status");
-    const activityElement = document.getElementById("activity");
+    if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+      const presence = data.d;
+      console.log("Presence data:", presence);
 
-    // Set the general Discord status
-    statusElement.textContent = `Status: ${presence.discord_status}`;
+      // Update DOM with presence data (adjust this part to match your existing code)
+      const statusElement = document.getElementById("status");
+      const activityElement = document.getElementById("activity");
 
-    // Check if Spotify is active and display details
-    if (presence.listening_to_spotify) {
-      const spotifyData = presence.spotify;
-      activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
-      
-      // Optionally display album art
-      const albumArtElement = document.getElementById("albumArt");
-      if (albumArtElement) {
-        albumArtElement.src = spotifyData.album_art_url; // Make sure you have an <img> element with id="albumArt"
+      statusElement.textContent = `Status: ${presence.discord_status}`;
+
+      if (presence.listening_to_spotify) {
+        const spotifyData = presence.spotify;
+        activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
+        const albumArtElement = document.getElementById("albumArt");
+        if (albumArtElement) {
+          albumArtElement.src = spotifyData.album_art_url;
+        }
+      } else {
+        activityElement.textContent = "No current activity.";
       }
     } else {
-      activityElement.textContent = "No activity detected or Spotify is not playing.";
+      console.log("Unknown data format or no presence updates.");
     }
-  }
-};
+  };
 
+  ws.onclose = () => {
+    console.log("WebSocket connection closed, reconnecting...");
+    setTimeout(connectToLanyard, 5000); // Reconnect after 5 seconds
+  };
 
-ws.onerror = (error) => {
-  console.error("WebSocket error:", error);
-};
+  ws.onerror = (error) => {
+    console.error("WebSocket error:", error);
+    ws.close();
+  };
+}
 
-ws.onclose = () => {
-  console.log("WebSocket connection closed");
-};
+// Start the WebSocket connection
+connectToLanyard();
