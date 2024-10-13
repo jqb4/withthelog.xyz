@@ -14,27 +14,33 @@ ws.onopen = () => {
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log("Full WebSocket message received:", data); // Log everything
+  console.log("Full WebSocket message received:", data);
 
-  // Specifically check for presence data
   if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-    console.log("Presence data:", data.d); // Log the relevant presence data
     const presence = data.d;
 
     const statusElement = document.getElementById("status");
     const activityElement = document.getElementById("activity");
 
-    statusElement.textContent = `Status: ${presence.status || "No status"}`;
-    
-    if (presence.activities && presence.activities.length > 0) {
-      activityElement.textContent = `Activity: ${presence.activities[0].name}`;
+    // Set the general Discord status
+    statusElement.textContent = `Status: ${presence.discord_status}`;
+
+    // Check if Spotify is active and display details
+    if (presence.listening_to_spotify) {
+      const spotifyData = presence.spotify;
+      activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
+      
+      // Optionally display album art
+      const albumArtElement = document.getElementById("albumArt");
+      if (albumArtElement) {
+        albumArtElement.src = spotifyData.album_art_url; // Make sure you have an <img> element with id="albumArt"
+      }
     } else {
-      activityElement.textContent = "No activity detected";
+      activityElement.textContent = "No activity detected or Spotify is not playing.";
     }
-  } else {
-    console.log("Unknown data format or no presence updates.");
   }
 };
+
 
 ws.onerror = (error) => {
   console.error("WebSocket error:", error);
