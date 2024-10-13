@@ -23,7 +23,6 @@ function connectToLanyard() {
     const presence = data.d;
 
     // Update HTML content dynamically
-    const statusElement = document.getElementById("status");
     const activityElement = document.getElementById("activity");
     const albumArtElement = document.getElementById("albumArt");
 
