@@ -1,9 +1,40 @@
 body {
-    margin: 0; /* Remove default margin */
-    height: 100vh; /* Ensure body takes full height */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: rgb(36,29,19);
     background: -moz-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     background: -webkit-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     background: linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#241d13",endColorstr="#978b7d",GradientType=1); 
 }
+
+.container {
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #activity {
+    text-align: left;
+    font-size: 20px;
+    color: #333;
+    margin-left: 20px;
+  }
+
+  #albumArt {
+    width: 100px;
+    height: 100px;
+  }
+
+  .separator {
+    width: 2px;
+    background-color: #ccc;
+    height: 100px;
+    margin: 0 20px;
+  }
