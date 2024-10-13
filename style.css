@@ -4,11 +4,7 @@ body {
     align-items: center;
     margin: 0;
     height: 100vh; 
-    background: rgb(36,29,19);
-    background: -moz-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
-    background: -webkit-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
-    background: linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#241d13",endColorstr="#978b7d",GradientType=1);
+    background: rgb(0, 0, 0);
     transition: background 1s ease;  
 }
 
