@@ -1,0 +1,6 @@
+body {
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Ensure body takes full height */
+    background: rgb(125, 125, 125); /* Fallback for older browsers */
+    background: linear-gradient(156deg, rgba(125, 125, 125, 1) 25%, rgba(57, 57, 57, 1) 55%, rgba(38, 38, 38, 1) 83%);
+}
