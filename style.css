@@ -9,5 +9,5 @@ body {
     background: -webkit-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     background: linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#241d13",endColorstr="#978b7d",GradientType=1);
-    transition: background 0.5s;
+    transition: 1,5s;
 }
