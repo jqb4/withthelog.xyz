@@ -42,9 +42,9 @@ function connectToLanyard() {
         albumArtElement.onload = function () {
           const colorThief = new ColorThief();
           const dominantColor = colorThief.getColor(albumArtElement);
-          const palette = colorThief.getPalette(albumArtElement, 2);
+          const palette = colorThief.getPalette(albumArtElement, 4);
           
-          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
+          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}, ${dominantColor[3]}, ${dominantColor[4]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}, ${palette[1][3]}, ${palette[1][4]}))`;
           document.body.style.background = gradient; // Set the new gradient background
         };
       } else {
