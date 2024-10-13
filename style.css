@@ -10,21 +10,5 @@ body {
     background: linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#241d13",endColorstr="#978b7d",GradientType=1);
     transition: background 1s ease;
-
-    #progress-container {
-        width: 100%;
-        height: 10px;
-        background-color: #e0e0e0;
-        border-radius: 5px;
-        overflow: hidden;
-        position: relative;
-      }
-      
-      #progress-bar {
-        height: 100%;
-        background-color: #1db954; /* Spotify green */
-        width: 0%; /* Start with 0% progress */
-        transition: width 0.5s ease; /* Smooth transition when updating width */
-      }
       
 }
