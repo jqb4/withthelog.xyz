@@ -27,6 +27,9 @@ function connectToLanyard() {
       const albumArtElement = document.getElementById("albumArt");
       const separatorElement = document.querySelector(".separator"); // Select the separator element
 
+      // Reset the previous song data
+      resetSongData();
+
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
@@ -81,6 +84,24 @@ function connectToLanyard() {
       }
     }
   };
+}
+
+// Reset song data to handle new song updates
+function resetSongData() {
+  const albumArtElement = document.getElementById("albumArt");
+  const activityElement = document.getElementById("activity");
+  const separatorElement = document.querySelector(".separator");
+
+  // Clear the album art and activity text
+  albumArtElement.src = "";
+  albumArtElement.style.display = "none";
+  activityElement.textContent = "";
+
+  // Hide the separator
+  separatorElement.style.display = "none";
+
+  // Reset the background color
+  document.body.style.background = "#2c2c2c";
 }
 
 // Start the WebSocket connection after the DOM is fully loaded
