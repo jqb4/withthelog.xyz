@@ -15,25 +15,37 @@
       font-family: Arial, sans-serif;
     }
 
-    #status, #activity {
-      text-align: center;
-      font-size: 20px;
-      color: #333;
+    .container {
+      display: flex;
+      align-items: center; /* Center items vertically */
     }
 
-    /* Example of styling for album art */
+    #activity {
+      text-align: left;
+      font-size: 20px;
+      color: #333;
+      margin-left: 20px; /* Space between the line and activity */
+    }
+
+    /* Style for album art */
     #albumArt {
-      display: block;
-      margin: 20px auto;
       width: 100px;
       height: 100px;
+    }
+
+    .separator {
+      width: 2px; /* Width of the vertical line */
+      background-color: #ccc; /* Color of the line */
+      height: 100px; /* Height of the line */
+      margin: 0 20px; /* Space around the line */
     }
   </style>
 </head>
 <body>
-  <div>
-    <p id="activity">Activity: Loading...</p>
+  <div class="container">
     <img id="albumArt" src="" alt="Album Art" style="display:none;" />
+    <div class="separator"></div> <!-- Vertical line -->
+    <p id="activity">Activity: Loading...</p>
   </div>
 
   <script src="lanyard.js"></script>
