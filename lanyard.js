@@ -9,7 +9,7 @@ function connectToLanyard() {
       JSON.stringify({
         op: 2,
         d: {
-          subscribe_to_id: "712648730423197697", // Discord User ID
+          subscribe_to_id: "712648730423197697", // Replace with your Discord ID
         },
       })
     );
@@ -26,16 +26,11 @@ function connectToLanyard() {
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
       const separatorElement = document.querySelector(".separator"); // Select the separator element
-      const progressBarElement = document.getElementById("progress-bar"); // Select the progress bar
 
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
-        activityElement.textContent = activityText;
-
-        // Update the document title with the activity
-        document.title = activityText;
+        activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
 
         // Load album art with CORS
         albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
@@ -52,24 +47,10 @@ function connectToLanyard() {
           const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
           document.body.style.background = gradient; // Set the new gradient background
         };
-
-        // Update the progress bar based on song progress
-        const progressPercentage = (spotifyData.timestamps.current / spotifyData.timestamps.end) * 100;
-        progressBarElement.style.width = `${progressPercentage}%`;
-
-        // Continuously update the progress bar every second
-        setInterval(() => {
-          const currentTime = Date.now();
-          const elapsedTime = currentTime - spotifyData.timestamps.start;
-          const totalDuration = spotifyData.timestamps.end - spotifyData.timestamps.start;
-          const updatedProgress = (elapsedTime / totalDuration) * 100;
-          progressBarElement.style.width = `${updatedProgress}%`;
-        }, 1000); // Update every second
       } else {
-        activityElement.textContent = "offline :(";
+        activityElement.textContent = "No current activity.";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
         separatorElement.style.display = "none"; // Hide the separator when no song is playing
-        progressBarElement.style.width = "0%"; // Reset the progress bar
       }
     }
   };
