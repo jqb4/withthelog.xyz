@@ -5,7 +5,7 @@ body {
     margin: 0;
     height: 100vh; 
     background: rgb(44,44,44);
-    transition: background 1s ease;  
+    transition: background 5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
 
   #activity {
