@@ -9,7 +9,7 @@ function connectToLanyard() {
       JSON.stringify({
         op: 2,
         d: {
-          subscribe_to_id: "712648730423197697", // Replace with your Discord ID
+          subscribe_to_id: "712648730423197697", // Discord User ID
         },
       })
     );
@@ -25,6 +25,7 @@ function connectToLanyard() {
       // Update HTML content dynamically
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
+      const separatorElement = document.querySelector(".separator"); // Select the separator element
 
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
@@ -35,6 +36,7 @@ function connectToLanyard() {
         albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
         albumArtElement.src = spotifyData.album_art_url; // Update album art URL
         albumArtElement.style.display = "block"; // Show the album art
+        separatorElement.style.display = "block"; // Show the separator when a song is playing
 
         // Extract colors and set gradient background
         albumArtElement.onload = function () {
@@ -46,8 +48,9 @@ function connectToLanyard() {
           document.body.style.background = gradient;
         };
       } else {
-        activityElement.textContent = "offline :(";
+        activityElement.textContent = "offlice :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
+        separatorElement.style.display = "none"; // Hide the separator when no song is playing
       }
     }
   };
