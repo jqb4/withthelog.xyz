@@ -33,13 +33,13 @@ function connectToLanyard() {
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `Listening to ${spotifyData.song} by ${spotifyData.artist}`;
+        activityElement.textContent = `Currently listening to ${spotifyData.song} - ${spotifyData.artist}`;
 
         // Display album art
         albumArtElement.src = spotifyData.album_art_url;
         albumArtElement.style.display = "block"; // Show the album art
       } else {
-        activityElement.textContent = "No current activity.";
+        activityElement.textContent = "offline :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
       }
     }
