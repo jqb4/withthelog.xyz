@@ -14,20 +14,26 @@ ws.onopen = () => {
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
+  console.log("Full WebSocket message received:", data); // Log the entire WebSocket message
+
   if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-    console.log("Received data:", data.d);
+    console.log("Presence data:", data.d); // Log the relevant presence data
+    const presence = data.d;
     const statusElement = document.getElementById("status");
     const activityElement = document.getElementById("activity");
 
-    statusElement.textContent = `Status: ${data.d.status}`;
+    statusElement.textContent = `Status: ${presence.status}`;
     
-    if (data.d.activities && data.d.activities.length > 0) {
-      activityElement.textContent = `Activity: ${data.d.activities[0].name}`;
+    if (presence.activities && presence.activities.length > 0) {
+      activityElement.textContent = `Activity: ${presence.activities[0].name}`;
     } else {
       activityElement.textContent = "No activity";
     }
+  } else {
+    console.log("Unknown data format or no presence updates.");
   }
 };
+
 
 ws.onerror = (error) => {
   console.error("WebSocket error:", error);
