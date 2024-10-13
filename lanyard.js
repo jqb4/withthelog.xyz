@@ -33,7 +33,10 @@ function connectToLanyard() {
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
+
+        // Update song and artist display with a dash and comma separator for multiple artists
+        const artistNames = spotifyData.artist.replace(/;/g, ","); // Replace any semicolon with a comma
+        activityElement.textContent = `${spotifyData.song} - ${artistNames}`;
 
         // Load album art with CORS
         albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
