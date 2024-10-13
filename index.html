@@ -3,14 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>Lanyard Presence</title>
+  <style>
+    /* Center the content horizontally and vertically */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #status, #activity {
+      text-align: center;
+      font-size: 20px;
+      color: #333;
+    }
+
+    /* Example of styling for album art */
+    #albumArt {
+      display: block;
+      margin: 20px auto;
+      width: 100px;
+      height: 100px;
+    }
+  </style>
 </head>
 <body>
-<div>
-  <p id="status">Status: Unknown</p>
-  <p id="activity">Activity: None</p>
-  <img id="albumArt" src="" alt="Album Art" style="width: 100px; height: 100px;"/>
-</div>
+  <div>
+    <p id="status">Status: Loading...</p>
+    <p id="activity">Activity: Loading...</p>
+    <img id="albumArt" src="" alt="Album Art" style="display:none;" />
+  </div>
 
   <script src="lanyard.js"></script>
 </body>
