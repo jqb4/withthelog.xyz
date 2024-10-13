@@ -5,11 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Lanyard Presence</title>
+  <style>
+    /* Center the content horizontally and vertically */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      align-items: center; /* Center items vertically */
+    }
+
+    #activity {
+      text-align: left;
+      font-size: 20px;
+      color: #333;
+      margin-left: 20px; /* Space between the line and activity */
+    }
+
+    /* Style for album art */
+    #albumArt {
+      width: 100px;
+      height: 100px;
+    }
+
+    .separator {
+      width: 2px; /* Width of the vertical line */
+      background-color: #ccc; /* Color of the line */
+      height: 100px; /* Height of the line */
+      margin: 0 20px; /* Space around the line */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <img id="albumArt" src="" alt="Album Art" style="display:none;" />
-    <div class="separator">
+    <div class="separator"></div> <!-- Vertical line -->
     <p id="activity">Activity: Loading...</p>
   </div>
 
