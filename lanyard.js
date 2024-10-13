@@ -41,11 +41,28 @@ function connectToLanyard() {
         // Extract colors and set gradient background
         albumArtElement.onload = function () {
           const colorThief = new ColorThief();
-          const dominantColor = colorThief.getColor(albumArtElement);
-          const palette = colorThief.getPalette(albumArtElement, 3);
-          
-          const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}, ${dominantColor[3]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}, ${palette[1][3]},))`;
-          document.body.style.background = gradient; // Set the new gradient background
+
+          try {
+            // Check if the image is valid
+            if (albumArtElement.naturalWidth > 0 && albumArtElement.naturalHeight > 0) {
+              const dominantColor = colorThief.getColor(albumArtElement);
+              const palette = colorThief.getPalette(albumArtElement, 3);
+
+              const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}, ${dominantColor[3]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}, ${palette[1][3]}))`;
+              document.body.style.background = gradient; // Set the new gradient background
+            } else {
+              console.error("Invalid image dimensions. Cannot extract colors.");
+            }
+          } catch (error) {
+            console.error("Error extracting colors from the image:", error);
+          }
+        };
+
+        // Handle errors while loading the album art
+        albumArtElement.onerror = function () {
+          console.error("Error loading album art image. Please check the URL.");
+          activityElement.textContent = "Failed to load album art.";
+          separatorElement.style.display = "none"; // Hide the separator if the image fails to load
         };
       } else {
         activityElement.textContent = "offline :(";
