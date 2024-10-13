@@ -40,27 +40,36 @@ function connectToLanyard() {
 
         // Extract colors and set gradient background
         albumArtElement.onload = function () {
-          const colorThief = new ColorThief();
-
           try {
-            // Check if the image is valid
+            const colorThief = new ColorThief();
+
+            // Check if image is fully loaded
             if (albumArtElement.naturalWidth > 0 && albumArtElement.naturalHeight > 0) {
               const dominantColor = colorThief.getColor(albumArtElement);
-              const palette = colorThief.getPalette(albumArtElement, 3);
+              const palette = colorThief.getPalette(albumArtElement, 2);
 
-              const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}, ${dominantColor[3]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}, ${palette[1][3]}))`;
-              document.body.style.background = gradient; // Set the new gradient background
+              // Check if palette data is valid
+              if (dominantColor && palette && palette.length > 1) {
+                const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
+                document.body.style.background = gradient; // Set the new gradient background
+              } else {
+                console.error("Invalid palette data. Applying fallback background.");
+                document.body.style.background = "#2c2c2c"; // Fallback background
+              }
             } else {
-              console.error("Invalid image dimensions. Cannot extract colors.");
+              console.error("Invalid image dimensions. Applying fallback background.");
+              document.body.style.background = "#2c2c2c"; // Fallback background
             }
           } catch (error) {
             console.error("Error extracting colors from the image:", error);
+            document.body.style.background = "#2c2c2c"; // Fallback background
           }
         };
 
         // Handle errors while loading the album art
         albumArtElement.onerror = function () {
-          console.error("Error loading album art image. Please check the URL.");
+          console.error("Error loading album art image. Applying fallback background.");
+          document.body.style.background = "#2c2c2c"; // Fallback background
           activityElement.textContent = "Failed to load album art.";
           separatorElement.style.display = "none"; // Hide the separator if the image fails to load
         };
@@ -68,6 +77,7 @@ function connectToLanyard() {
         activityElement.textContent = "offline :(";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
         separatorElement.style.display = "none"; // Hide the separator when no song is playing
+        document.body.style.background = "#2c2c2c"; // Fallback background when offline
       }
     }
   };
