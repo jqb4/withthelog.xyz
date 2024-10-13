@@ -54,19 +54,13 @@ function connectToLanyard() {
         progressBarElement.style.width = `${progressPercentage}%`;
 
         // Continuously update the progress bar every second
-        const interval = setInterval(() => {
+        setInterval(() => {
           const currentTime = Date.now();
           const elapsedTime = currentTime - spotifyData.timestamps.start;
           const totalDuration = spotifyData.timestamps.end - spotifyData.timestamps.start;
           const updatedProgress = (elapsedTime / totalDuration) * 100;
           progressBarElement.style.width = `${updatedProgress}%`;
-
-          // If the song ends, clear the interval
-          if (elapsedTime >= totalDuration) {
-            clearInterval(interval);
-          }
         }, 1000); // Update every second
-
       } else {
         activityElement.textContent = "No current activity.";
         albumArtElement.style.display = "none"; // Hide the album art if not listening to Spotify
