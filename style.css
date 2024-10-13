@@ -2,8 +2,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0; /* Remove default margin */
-    height: 100vh; /* Ensure body takes full height */
+    margin: 0;
+    height: 100vh; 
     background: rgb(36,29,19);
     background: -moz-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
     background: -webkit-linear-gradient(135deg, rgba(36,29,19,1) 0%, rgba(151,139,125,1) 100%);
@@ -20,7 +20,7 @@ body {
     text-align: center;
     font-size: 20px;
     color: #333;
-    margin-left: 5px; /* Space between the line and activity */
+    margin-left: 4px;
   }
 
   #albumArt {
@@ -30,10 +30,10 @@ body {
   }
 
   .separator {
-    width: 2px; /* Width of the vertical line */
-    background-color: #ccc; /* Color of the line */
-    height: 100px; /* Height of the line */
-    margin: 0 20px; /* Space around the line */
+    width: 2px; 
+    background-color: transparent;
+    height: 100px; 
+    margin: 0 20px;
   }
 
   #container {
