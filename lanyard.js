@@ -33,7 +33,7 @@ function connectToLanyard() {
       // Update the activity text and display Spotify data
       if (presence.listening_to_spotify) {
         const spotifyData = presence.spotify;
-        activityElement.textContent = `Currently listening to ${spotifyData.song} - ${spotifyData.artist}`;
+        activityElement.textContent = `${spotifyData.song} - ${spotifyData.artist}`;
 
         // Display album art
         albumArtElement.src = spotifyData.album_art_url;
