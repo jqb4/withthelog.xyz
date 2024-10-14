@@ -2,11 +2,16 @@ const icon = document.getElementById('infoIcon');
 const popup = document.getElementById('popupInfo');
 let popupOpen = false; // Track if the popup is open
 
-// Show popup when clicking on the icon
+// Toggle popup visibility
 icon.addEventListener('click', (e) => {
   e.stopPropagation(); // Prevents the window click event from firing
-  popup.style.display = popupOpen ? 'none' : 'block'; // Toggle the popup's visibility
-  popupOpen = !popupOpen; // Update the state
+  if (!popupOpen) {
+    popup.style.display = 'block'; // Show the popup
+    popupOpen = true;
+  } else {
+    popup.style.display = 'none'; // Hide the popup
+    popupOpen = false;
+  }
 });
 
 // Hide popup when clicking outside the popup or icon
