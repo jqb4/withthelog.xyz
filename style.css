@@ -23,15 +23,15 @@ body {
   font-weight: 400;
   font-style: normal;
   text-align: left;
-  font-size: 23px;
+  font-size: 30px;
   color: #333;
   margin-left: 7px; /* Space between the line and activity */
 }
 
 /* Style for album art */
 #albumArt {
-  width: 130px;
-  height: 130px;
+  width: 200px;
+  height: 200px;
   border-radius: 8px;
 }
 
