@@ -6,10 +6,10 @@ let popupOpen = false; // Track if the popup is open
 icon.addEventListener('click', (e) => {
   e.stopPropagation(); // Prevents the window click event from firing
   if (!popupOpen) {
-    popup.style.display = 'block'; // Show the popup
+    popup.classList.add('show'); // Show the popup with animation
     popupOpen = true;
   } else {
-    popup.style.display = 'none'; // Hide the popup
+    popup.classList.remove('show'); // Hide the popup
     popupOpen = false;
   }
 });
@@ -17,7 +17,7 @@ icon.addEventListener('click', (e) => {
 // Hide popup when clicking outside the popup or icon
 window.addEventListener('click', (e) => {
   if (popupOpen && !popup.contains(e.target) && !icon.contains(e.target)) {
-    popup.style.display = 'none'; // Hide the popup
+    popup.classList.remove('show'); // Hide the popup
     popupOpen = false; // Update the state
   }
 });
