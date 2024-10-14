@@ -25,6 +25,7 @@ function connectToLanyard() {
       // Update HTML content dynamically
       const activityElement = document.getElementById("activity");
       const albumArtElement = document.getElementById("albumArt");
+      const albumArtLink = document.getElementById("albumArtLink"); // Anchor element for clickable album art
       const separatorElement = document.querySelector(".separator"); // Select the separator element
 
       // Reset the previous song data
@@ -38,10 +39,12 @@ function connectToLanyard() {
         const artistNames = spotifyData.artist.replace(/;/g, ","); // Replace any semicolon with a comma
         activityElement.textContent = `${spotifyData.song} - ${artistNames}`;
 
-        // Load album art with CORS
+        // Load album art with CORS and make it clickable to the Spotify URL
         albumArtElement.crossOrigin = "Anonymous"; // Set CORS attribute
         albumArtElement.src = spotifyData.album_art_url; // Update album art URL
         albumArtElement.style.display = "block"; // Show the album art
+        albumArtLink.href = `https://open.spotify.com/track/${spotifyData.track_id}`; // Set the song's Spotify link
+        albumArtLink.target = "_blank"; // Open in a new tab
         separatorElement.style.display = "block"; // Show the separator when a song is playing
 
         // Extract colors and set gradient background with smooth transition
@@ -59,6 +62,7 @@ function connectToLanyard() {
                 const gradient = `linear-gradient(135deg, rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}), rgb(${palette[1][0]}, ${palette[1][1]}, ${palette[1][2]}))`;
 
                 // Apply smooth transition to background
+                document.body.style.transition = "background 5s cubic-bezier(0.45, 0.05, 0.55, 0.95)";
                 document.body.style.background = gradient;
               } else {
                 console.error("Invalid palette data. Applying fallback background.");
@@ -94,11 +98,13 @@ function connectToLanyard() {
 // Reset song data to handle new song updates
 function resetSongData() {
   const albumArtElement = document.getElementById("albumArt");
+  const albumArtLink = document.getElementById("albumArtLink"); // Reset anchor element
   const activityElement = document.getElementById("activity");
   const separatorElement = document.querySelector(".separator");
 
-  // Clear the album art and activity text
+  // Clear the album art, activity text, and anchor href
   albumArtElement.src = "";
+  albumArtLink.href = "#";
   albumArtElement.style.display = "none";
   activityElement.textContent = "";
 
