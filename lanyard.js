@@ -80,7 +80,7 @@ let ws;
                         albumArtElement.onerror = function () {
                             console.error("Error loading album art image. Applying fallback background.");
                             document.body.style.background = "#2c2c2c"; // Fallback background
-                            activityElement.textContent = "Failed to load album art.";
+                            activityElement.textContent = "offline :(";
                             separatorElement.style.display = "none"; // Hide the separator if the image fails to load
                         };
                     } else {
