@@ -54,25 +54,22 @@ body {
 }
 
 .material-symbols-outlined {
-  font-size: 50px; /* Adjust size as needed */
-  color: #999999; /* Adjust color as needed */
+  font-size: 50px;
+  color: #999999;
 }
 
+/* Popup container */
 .popup {
+  display: none;
   position: fixed;
-  bottom: 100px;
+  bottom: 80px;
   right: 20px;
   width: 300px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transform: scale(0);
-  transform-origin: bottom right;
-  opacity: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   animation: fadeIn 0.3s ease-in-out;
-  display: none;
 }
 
 @keyframes fadeIn {
@@ -84,14 +81,4 @@ body {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-.popup.active {
-  display: block;
-  transform: scale(1);
-  opacity: 1;
-}
-
-.popup .close-btn {
-  display: none;
 }
